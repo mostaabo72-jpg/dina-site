@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>منصة الأستاذة دينا مصطفى التعليمية — دروس خصوصية بوضوح وثقة</title>
+<meta name="description" content="دروس خصوصية مباشرة ومسجلة، اشتراكات واضحة بالجنيه المصري، ودفع بتحويل InstaPay مع تأكيد قبل التفعيل.">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff8ef;--ink:#2b1d14;--mut:#7a6a5e;--o:#e8643c;--o2:#ff9a5c;--card:#fff;--line:#f0e2d2}
+@media (prefers-color-scheme:dark){:root{--bg:#14100d;--ink:#f6ece2;--mut:#b4a395;--card:#1d1814;--line:#2d241d}}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth}
+body{font-family:Cairo,sans-serif;background:var(--bg);color:var(--ink);line-height:1.8;overflow-x:hidden}
+a{color:inherit}.wrap{max-width:1000px;margin:auto;padding:0 20px}
+nav{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav b{font-weight:900}.btn{display:inline-block;background:linear-gradient(135deg,var(--o),var(--o2));color:#fff;text-decoration:none;font-weight:800;padding:12px 26px;border-radius:99px;border:0;cursor:pointer;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}.btn.alt{background:none;color:var(--ink);border:2px solid var(--line)}
+.hero{min-height:100svh;display:grid;place-items:center;text-align:center;padding:96px 20px 48px}
+.hero-inner{will-change:transform,opacity;max-width:880px}
+h1{font-size:clamp(2.3rem,7.5vw,5.2rem);font-weight:900;line-height:1.15}
+h1 span,h2 span{background:linear-gradient(135deg,var(--o),var(--o2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:clamp(1.05rem,2.6vw,1.4rem);color:var(--mut);margin:20px auto 30px;max-width:640px}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+section{padding:90px 0}h2{font-size:clamp(1.8rem,5vw,3.2rem);font-weight:900;line-height:1.25;text-align:center;margin-bottom:12px}
+.sub{color:var(--mut);text-align:center;max-width:620px;margin:0 auto 44px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:26px}.card h3{font-weight:800;margin-bottom:6px}.card p{color:var(--mut);font-size:.95rem}
+.ic{font-size:2rem;display:block;margin-bottom:8px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}@media(max-width:760px){.split{grid-template-columns:1fr}}
+.phone{width:min(270px,72vw);aspect-ratio:9/18;margin:auto;border-radius:38px;border:9px solid var(--ink);background:var(--card);padding:18px 14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden}
+.phone .bar{height:10px;border-radius:9px;background:var(--line);margin:10px 0;overflow:hidden}.phone .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--o),var(--o2));animation:fill 3s ease-in-out infinite alternate}
+@keyframes fill{to{width:80%}}.phone .l{background:var(--bg);border-radius:14px;padding:10px;margin:8px 0;font-size:.82rem}.phone small{display:block;color:var(--mut);text-align:center;margin-top:12px;font-size:.7rem}
+.steps{position:relative;--p:0;padding-inline-start:46px}.steps::before,.steps::after{content:"";position:absolute;inset-inline-start:15px;top:8px;width:4px;border-radius:4px}
+.steps::before{bottom:8px;background:var(--line)}.steps::after{height:calc((100% - 16px)*var(--p));background:linear-gradient(var(--o),var(--o2))}
+.step{position:relative;margin-bottom:26px}.step b{position:absolute;inset-inline-start:-46px;top:0;width:34px;height:34px;border-radius:50%;background:var(--o);color:#fff;display:grid;place-items:center;font-weight:900}
+.step h3{font-weight:800}.step p{color:var(--mut)}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:26px;text-align:center}.plan .pr{font-size:2.2rem;font-weight:900;color:var(--o)}.plan p{color:var(--mut)}
+details{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 20px;margin-bottom:10px}summary{cursor:pointer;font-weight:800}details p{color:var(--mut);margin-top:8px}
+.cta{text-align:center;padding:100px 20px}footer{text-align:center;color:var(--mut);padding:30px 20px;border-top:1px solid var(--line);font-size:.9rem}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.7,.2,1) var(--d,0s),transform .9s cubic-bezier(.2,.7,.2,1) var(--d,0s)}.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav><b>منصة الأستاذة دينا مصطفى</b><a class="btn" href="/#/login" style="padding:8px 20px">دخول / حساب جديد</a></nav>
+
+<header class="hero"><div class="hero-inner">
+  <h1>دروس خصوصية <span>بوضوح</span> وثقة</h1>
+  <p>حصص مباشرة ودروس مسجلة لمناهج مختلفة، باشتراك واضح بالجنيه المصري، ومتابعة لتقدم طفلك، وبدون مفاجآت.</p>
+  <div class="row"><a class="btn" href="#plans">شاهد الباقات</a><a class="btn alt" href="#how">كيف تشترك؟</a></div>
+</div></header>
+
+<section><div class="wrap">
+  <h2 class="rv">كل ما يحتاجه <span>طفلك</span> في مكان واحد</h2>
+  <p class="sub rv">مبني ليكون بسيطًا لولي الأمر وممتعًا للطالب.</p>
+  <div class="grid">
+    <div class="card rv"><span class="ic">🎥</span><h3>حصص مباشرة</h3><p>عبر Google Meet بمواعيد واضحة، ويظهر لك رابط الانضمام قبل الموعد بـ 15 دقيقة.</p></div>
+    <div class="card rv" style="--d:.08s"><span class="ic">📚</span><h3>دروس للمشتركين</h3><p>محتوى مخصص لأصحاب الاشتراك الفعّال، مع دروس مجانية تجرّبها قبل الاشتراك.</p></div>
+    <div class="card rv" style="--d:.16s"><span class="ic">🎮</span><h3>تطبيقات تفاعلية مجانية</h3><p>تتوفر مع بعض الدروس كإضافة مجانية للمشتركين تجعل المراجعة أكثر متعة.</p></div>
+    <div class="card rv"><span class="ic">📈</span><h3>متابعة التقدم</h3><p>يبقى تقدم طفلك محفوظًا حتى بعد انتهاء الاشتراك.</p></div>
+    <div class="card rv" style="--d:.08s"><span class="ic">🧾</span><h3>سعر ومدة واضحان</h3><p>تعرف السعر والمدة والشروط قبل الدفع، ولكل طلب رقم وحالة تتابعها.</p></div>
+    <div class="card rv" style="--d:.16s"><span class="ic">🔒</span><h3>دفع آمن وبسيط</h3><p>تحويل يدوي عبر InstaPay من تطبيقك، ولا نطلب أي بيانات بنكية أو أرقام بطاقات أو رموز تحقق.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap split">
+  <div><h2 class="rv" style="text-align:start">تجربة مصممة <span>للموبايل</span></h2>
+  <p class="rv" style="color:var(--mut)">افتح الدرس، شاهد تقدمك، وانضم للحصة من هاتفك بسهولة.</p></div>
+  <div class="phone rv"><b>🌟 درس تجريبي</b><div class="l">✔ تم إكمال الدرس</div><div class="l">⏱ الحصة القادمة: بعد قليل</div><div class="bar"><i></i></div><small>شكل توضيحي</small></div>
+</div></section>
+
+<section id="how"><div class="wrap">
+  <h2 class="rv">أربع خطوات <span>واضحة</span></h2><p class="sub rv">من الطلب حتى الدرس الأول.</p>
+  <div class="steps" style="max-width:640px;margin:auto">
+    <div class="step rv"><b>1</b><h3>اختر الباقة وأنشئ حسابك</h3><p>ترى السعر والمدة والشروط قبل أن تدفع.</p></div>
+    <div class="step rv"><b>2</b><h3>حوّل المبلغ عبر InstaPay</h3><p>بالبيانات المعروضة في صفحة طلبك، ثم أرسل مرجع التحويل.</p></div>
+    <div class="step rv"><b>3</b><h3>نتأكد من وصول المبلغ</h3><p>لا نفعّل الاشتراك قبل التأكد الفعلي من وصول التحويل، ثم نرسل لك كود تفعيل خاصًا بحسابك.</p></div>
+    <div class="step rv"><b>4</b><h3>فعّل الكود وابدأ</h3><p>تبدأ مدة الاشتراك من لحظة التفعيل، لا من وقت الطلب.</p></div>
+  </div>
+</div></section>
+
+<section id="plans"><div class="wrap">
+  <h2 class="rv">الباقات</h2><p class="sub rv">الأسعار بالجنيه المصري.</p>
+  <div class="grid" id="plansBox"><p class="sub">جارٍ تحميل الباقات…</p></div>
+  <p class="sub" style="margin-top:24px">لكل باقة سياسة استرداد واضحة، اطّلع عليها في <a href="/#/policies">صفحة السياسات</a>.</p>
+</div></section>
+
+<section><div class="wrap" style="max-width:720px">
+  <h2 class="rv">أسئلة <span>سريعة</span></h2><br>
+  <details class="rv"><summary>هل أحتاج إدخال بياناتي البنكية؟</summary><p>لا. التحويل يدوي من تطبيق InstaPay الخاص بك، ولا نطلب كلمات مرور أو بيانات بطاقات.</p></details>
+  <details class="rv"><summary>متى تبدأ مدة الاشتراك؟</summary><p>من لحظة تفعيل الكود، وليس من وقت الطلب أو التحويل.</p></details>
+  <details class="rv"><summary>ماذا يحدث عند انتهاء الاشتراك؟</summary><p>يتوقف الوصول للمحتوى المخصص للمشتركين فقط، ويبقى حسابك وتقدمك.</p></details>
+  <details class="rv"><summary>هل التطبيقات التفاعلية مشمولة؟</summary><p>هي إضافة مجانية مع بعض الدروس للمشتركين، وليست جزءًا مضمونًا من الاشتراك.</p></details>
+</div></section>
+
+<div class="cta"><h2 class="rv">جاهز <span>تبدأ</span>؟</h2><p class="sub rv">أنشئ حسابك وتصفّح الدروس المجانية أولًا.</p>
+  <div class="row rv"><a class="btn" href="/#/login">ابدأ الآن</a><a class="btn alt wa" href="#" target="_blank" rel="noopener noreferrer" hidden>تواصل عبر واتساب</a></div></div>
+<footer>© منصة الأستاذة دينا مصطفى التعليمية · <a href="/#/policies">الشروط والسياسات</a></footer>
+
+<script src="config.js"></script>
+<script>
+const C = window.CFG || {}, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .15});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+const hi = document.querySelector('.hero-inner'), st = document.querySelector('.steps'); let tick = false;
+function onScroll() {
+  if (tick) return; tick = true;
+  requestAnimationFrame(() => {
+    const h = innerHeight, p = Math.min(1, scrollY / (h * .7));
+    if (!reduce) { hi.style.transform = `scale(${1 - p * .12}) translateY(${p * -40}px)`; hi.style.opacity = 1 - p * .85; }
+    const r = st.getBoundingClientRect(); st.style.setProperty('--p', Math.min(1, Math.max(0, (h * .7 - r.top) / r.height)));
+    tick = false;
+  });
+}
+addEventListener('scroll', onScroll, {passive: true}); onScroll();
+if (C.whatsapp) { const a = document.querySelector('.wa'); a.href = 'https://wa.me/' + String(C.whatsapp).replace(/\D/g, ''); a.hidden = false; }
+(async () => {
+  const box = document.getElementById('plansBox');
+  try {
+    if (!C.url || !C.anonKey) throw 0;
+    const r = await fetch(C.url + '/rest/v1/plans?select=name,price_egp,duration_days,description&is_active=eq.true&order=price_egp.asc', {headers: {apikey: C.anonKey, Authorization: 'Bearer ' + C.anonKey}});
+    if (!r.ok) throw 0;
+    const ps = await r.json(); box.textContent = '';
+    if (!ps.length) { box.textContent = 'تُعلن الباقات قريبًا.'; return; }
+    ps.forEach((p, i) => {
+      const d = document.createElement('div'); d.className = 'plan rv'; d.style.setProperty('--d', i * .08 + 's');
+      const t = document.createElement('h3'); t.textContent = p.name;
+      const pr = document.createElement('div'); pr.className = 'pr'; pr.textContent = new Intl.NumberFormat('ar-EG', {style: 'currency', currency: 'EGP'}).format(p.price_egp);
+      const du = document.createElement('p'); du.textContent = 'المدة: ' + p.duration_days + ' يومًا من تاريخ التفعيل';
+      const ds = document.createElement('p'); ds.textContent = p.description || '';
+      const a = document.createElement('a'); a.className = 'btn'; a.href = '/#/'; a.textContent = 'اشترك'; a.style.marginTop = '12px';
+      d.append(t, pr, du, ds, a); box.append(d); io.observe(d);
+    });
+  } catch { box.innerHTML = '<p class="sub">تعذر تحميل الباقات الآن. <a href="/#/">شاهدها داخل المنصة</a>.</p>'; }
+})();
+</script>
+</body>
+</html>
