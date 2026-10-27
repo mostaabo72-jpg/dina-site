@@ -111,7 +111,7 @@ async function vAdmin(tab = 'orders') {
   } else if (tab === 'lessons') {
     const {data:ls} = await sb.from('lessons').select('id,title,program,is_free,published,iframe_url').order('created_at', {ascending:false});
     h += `<form class="card" data-form="lesson"><h3>درس جديد</h3><label>العنوان</label><input name="t" required maxlength="150">
-    <label>البرنامج</label><select name="p"><option>القرآن الكريم</option><option>اللغة العربية</option><option>الإسلاميات</option></select>
+    <label>المادة / البرنامج</label><input name="p" list="progs" required maxlength="60" placeholder="اختر أو اكتب مادة جديدة"><datalist id="progs"><option value="القرآن الكريم"><option value="اللغة العربية"><option value="الإسلاميات"><option value="اللغة الإنجليزية"><option value="الرياضيات"><option value="العلوم"><option value="الدراسات الاجتماعية"><option value="الحاسب"></datalist>
     <label>ملخص قصير يراه الجميع (لا تضع فيه محتوى مدفوعًا)</label><input name="s" maxlength="200">
     <label>محتوى الدرس (للمشتركين فقط إن لم يكن مجانيًا)</label><textarea name="b" rows="8"></textarea>
     <label>رابط التطبيق التفاعلي (اختياري) — يجب أن يكون على موقع/نطاق منفصل عن المنصة، ويبدأ بـ https://</label><input type="url" name="u" maxlength="500" placeholder="https://...">
