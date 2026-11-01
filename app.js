@@ -4,7 +4,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const egp = n => new Intl.NumberFormat('ar-EG', {style:'currency', currency:'EGP'}).format(n);
 const dt = d => new Date(d).toLocaleDateString('ar-EG', {year:'numeric', month:'long', day:'numeric'});
 const ST = {awaiting_review:'في انتظار المراجعة', confirmed:'تم تأكيد الدفع — بانتظار كود التفعيل', rejected:'مرفوض', cancelled:'ملغى', activated:'مفعّل'};
-const SETTINGS = {instapay_name:'اسم صاحب حساب InstaPay', instapay_handle:'عنوان/رقم InstaPay للتحويل', support_contact:'وسيلة التواصل مع الإدارة', require_receipt:'هل صورة الإيصال مطلوبة؟ (true/false)', terms:'شروط الاستخدام والاشتراك', privacy:'سياسة الخصوصية', refund_policy:'سياسة الاسترداد', faq:'الأسئلة الشائعة'};
+const SETTINGS = {instapay_name:'اسم صاحب حساب InstaPay', instapay_handle:'عنوان/رقم InstaPay للتحويل', payment_note:'ملاحظة تظهر مع بيانات التحويل (مثل سبب اختلاف الاسم)', support_contact:'وسيلة التواصل مع الإدارة', require_receipt:'هل صورة الإيصال مطلوبة؟ (true/false)', terms:'شروط الاستخدام والاشتراك', privacy:'سياسة الخصوصية', refund_policy:'سياسة الاسترداد', faq:'الأسئلة الشائعة'};
 let me = null;
 const toast = m => { const t = $('#toast'); t.textContent = m; t.hidden = false; setTimeout(() => t.hidden = true, 4000); };
 const settings = async () => Object.fromEntries(((await sb.from('app_settings').select('key,value')).data || []).map(r => [r.key, r.value]));
@@ -20,7 +20,7 @@ async function loadMe() {
 
 async function vHome() {
   const {data:plans} = await sb.from('plans').select('*').eq('is_active', true).order('price_egp');
-  return `<section class="hero"><h1>منصة الأستاذة دينا مصطفى التعليمية</h1>
+  return `<section class="hero"><h1>منصة الأستاذة دينا مصطفى التعليمية</h1><p class="muted"><b>بإشراف الأستاذة دينا مصطفى دحروج</b></p>
   <p>اشتراكات واضحة بالجنيه المصري، والدفع بتحويل InstaPay يدويًا ثم مراجعة وتفعيل من الإدارة.</p>
   <a class="btn" href="#/how">كيف أشترك؟</a></section><h2>الباقات</h2><div class="grid">` +
   ((plans || []).map(p => `<div class="card"><h3>${esc(p.name)}</h3><div class="price">${egp(p.price_egp)}</div>
@@ -29,7 +29,7 @@ async function vHome() {
   <button class="btn" data-act="buy" data-id="${p.id}">اشترك</button></div>`).join('') || '<p class="muted">لم تنشر الإدارة باقات بعد.</p>') + '</div>';
 }
 
-const vHow = () => `<h1>طريقة الاشتراك</h1><div class="card"><ol>
+const vHow = () => `<h1>طريقة الاشتراك</h1><p class="muted">منصة الأستاذة دينا مصطفى التعليمية، بإشراف الأستاذة دينا مصطفى دحروج.</p><div class="card"><ol>
 <li>أنشئ حسابًا أو سجّل الدخول، ثم اختر الباقة وراجع سعرها ومدتها وشروطها.</li>
 <li>يُنشأ لك طلب برقم محدد، وتظهر بيانات التحويل التي حددتها الإدارة.</li>
 <li>حوّل المبلغ عبر InstaPay من تطبيقك مباشرة، ثم اكتب مرجع التحويل وأرفق صورة الإيصال.</li>
@@ -78,6 +78,7 @@ async function vOrder(id) {
   <p>المدة: ${o.duration_days} يومًا تبدأ عند تفعيل الكود (لا تُخصم أثناء المراجعة).</p><p>الحالة: <span class="tag">${ST[o.status]}</span> ${o.review_note ? '— ' + esc(o.review_note) : ''}</p>
   <p class="muted">راجع <a href="#/policies">الشروط وسياسة الاسترداد</a> قبل الدفع.</p></div>` + (o.status === 'awaiting_review' ? `
   <div class="card"><h3>بيانات التحويل عبر InstaPay</h3>${S.instapay_handle ? `<p>حوّل <b>${egp(o.price_egp)}</b> إلى: <b class="ltr">${esc(S.instapay_handle)}</b> ${S.instapay_name ? '(' + esc(S.instapay_name) + ')' : ''}</p>` : '<p class="err">لم تضبط الإدارة بيانات التحويل بعد؛ لا تحوّل قبل ذلك.</p>'}
+  ${S.payment_note ? `<p class="muted">${esc(S.payment_note)}</p>` : ''}
   <p class="muted">التحويل يدوي من تطبيقك. لا ندخل في أي بوابة دفع ولا نطلب بياناتك البنكية.</p></div>
   <form class="card" data-form="payinfo" data-id="${o.id}"><label>مرجع التحويل</label><input name="r" maxlength="64" value="${esc(o.transfer_reference)}" required>
   <label>صورة الإيصال ${need ? '(مطلوبة)' : '(اختيارية)'} — JPG/PNG/WebP حتى 5 ميجا</label><input type="file" name="f" accept="image/jpeg,image/png,image/webp" ${need && !o.receipt_path ? 'required' : ''}>
@@ -153,7 +154,7 @@ async function vLive() {
   if (error) return '<p class="err">تعذر تحميل الحصص.</p>';
   const rows = data || [];
   if (!rows.length) return '<h1>الحصص المباشرة</h1><div class="card"><p>لا توجد حصص قادمة لك حاليًا.</p><p class="muted">الحصص المباشرة لأصحاب الاشتراك الفعّال، وتنسّق الإدارة مواعيدك. إن لم يكن لديك اشتراك فعّال فاطّلع على <a href="#/">الباقات</a>.</p></div>';
-  return '<h1>الحصص المباشرة</h1><p class="muted">يظهر رابط الانضمام قبل الموعد بـ 15 دقيقة. حدّث الصفحة إن لم يظهر. المواعيد بتوقيت القاهرة. لا تشارك الرابط مع غيرك.</p>' + rows.map(s => `<div class="card"><h3>${esc(s.title)}</h3>
+  return '<h1>الحصص المباشرة</h1><p class="muted">حصص بإشراف الأستاذة دينا مصطفى دحروج.</p><p class="muted">يظهر رابط الانضمام قبل الموعد بـ 15 دقيقة. حدّث الصفحة إن لم يظهر. المواعيد بتوقيت القاهرة. لا تشارك الرابط مع غيرك.</p>' + rows.map(s => `<div class="card"><h3>${esc(s.title)}</h3>
     ${s.subject ? '<span class="tag">' + esc(s.subject) + '</span> ' : ''}<p>🕒 ${esc(fmtCairo(s.starts_at))} — ${s.duration_min} دقيقة</p>
     ${s.notes ? '<p class="muted pre">' + esc(s.notes) + '</p>' : ''}
     ${s.meet_url && isMeet(s.meet_url) ? `<a class="btn" href="${esc(s.meet_url)}" target="_blank" rel="noopener noreferrer">انضم الآن</a>` : '<p class="muted">سيظهر رابط الانضمام قبل الموعد بـ 15 دقيقة.</p>'}</div>`).join('');
@@ -165,7 +166,7 @@ async function vLessons() {
   let done = new Set();
   if (me) done = new Set(((await sb.from('lesson_progress').select('lesson_id').eq('user_id', me.id)).data || []).map(r => r.lesson_id));
   const open = (data || []).filter(l => l.unlocked), n = open.filter(l => done.has(l.id)).length;
-  return '<h1>الدروس</h1>' + (me
+  return '<h1>الدروس</h1><p class="muted">دروس بإشراف الأستاذة دينا مصطفى دحروج.</p>' + (me
     ? `<div class="card"><b>تقدمك:</b> أكملت ${n} من ${open.length} درسًا متاحًا لك<progress value="${n}" max="${open.length || 1}" style="width:100%"></progress></div>`
     : '<p class="muted"><a href="#/login">سجّل الدخول</a> لحفظ تقدمك.</p>') + '<div class="grid">' +
     ((data || []).map(l => `<div class="card"><span class="tag">${esc(l.program)}</span> ${l.is_free ? '<span class="tag">مجاني</span>' : ''}<h3>${esc(l.title)}</h3><p class="muted">${esc(l.summary)}</p>` +
