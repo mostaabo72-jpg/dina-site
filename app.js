@@ -1,4 +1,4 @@
- const sb = supabase.createClient(CFG.url, CFG.anonKey);
+  const sb = supabase.createClient(CFG.url, CFG.anonKey);
 const $ = s => document.querySelector(s), app = $('#app');
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const egp = n => new Intl.NumberFormat('ar-EG', {style:'currency', currency:'EGP'}).format(n);
