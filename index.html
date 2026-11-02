@@ -1,26 +1,30 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة الأستاذة دينا مصطفى التعليمية</title>
-    <link href="https://googleapis.com" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f172a">
+<title>منصة الأستاذة دينا مصطفى التعليمية</title>
+<meta name="description" content="دروس خصوصية مباشرة ومسجلة باشتراكات واضحة بالجنيه المصري، بإشراف الأستاذة دينا مصطفى دحروج.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📚%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="nav">
-        <a class="brand" href="#">منصة الأستاذة دينا مصطفى التعليمية</a>
-        <small style="display:block; color:#7a6a5e; font-size:12px; margin-top:2px;">بإشراف الأستاذة دينا مصطفى دحروج</small>
-    </header>
+<header class="nav">
+  <a class="brand" href="#/">منصة الأستاذة دينا مصطفى التعليمية<small>بإشراف الأستاذة دينا مصطفى دحروج</small></a>
+  <nav id="nav" aria-label="القائمة الرئيسية"></nav>
+</header>
 
-    <main id="app"></main>
+<main id="app"><noscript><p>يلزم تفعيل JavaScript لتشغيل المنصة.</p></noscript></main>
 
-    <footer>© منصة الأستاذة دينا مصطفى التعليمية — بإشراف الأستاذة دينا مصطفى دحروج — <a href="#/policies">الشروط والسياسات</a></footer>
+<footer>© منصة الأستاذة دينا مصطفى التعليمية — بإشراف الأستاذة دينا مصطفى دحروج — <a href="#/policies">الشروط والسياسات</a></footer>
+<div id="toast" role="status" hidden></div>
 
-    <div id="toast" hidden></div>
-
-    <script src="https://jsdelivr.net"></script>
-    <script src="config.js"></script>
-    <script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
