@@ -1,4 +1,4 @@
-  const sb = supabase.createClient(CFG.url, CFG.anonKey);
+ const sb = supabase.createClient(CFG.url, CFG.anonKey);
 const $ = s => document.querySelector(s), app = $('#app');
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const egp = n => new Intl.NumberFormat('ar-EG', {style:'currency', currency:'EGP'}).format(n);
@@ -97,8 +97,8 @@ async function vAdmin(tab = 'orders') {
       (os || []).map(o => `<div class="card oc"><b>#${o.order_no}</b> — ${esc(o.profiles?.full_name)} — ${esc(o.plan_name)} — ${egp(o.price_egp)} <span class="tag">${ST[o.status]}</span>
       <p class="muted">مرجع التحويل: ${esc(o.transfer_reference) || '—'} | ${dt(o.created_at)}</p><div class="row">
       ${o.receipt_path ? `<button class="btn alt" data-act="receipt" data-p="${esc(o.receipt_path)}">عرض الإيصال</button>` : ''}
-      ${o.status === 'awaiting_review' ? `<button class="btn" data-act="approve" data-id="${o.id}">تأكيد وصول المبلغ</button><button class="btn bad" data-act="reject" data-id="${o.id}">رفض</button>` : ''}
-      ${o.status === 'confirmed' && !cm[o.id] ? `<button class="btn" data-act="issue" data-id="${o.id}">إصدار كود</button>` : ''}
+      ${o.status === 'awaiting_review' ? `<button class="btn" data-act="approve" data-id="${o.id}">تأكيد وصول المبلغ</button><button class="btn" data-act="activate" data-id="${o.id}">تأكيد وتفعيل فوري</button><button class="btn bad" data-act="reject" data-id="${o.id}">رفض</button>` : ''}
+      ${o.status === 'confirmed' && !cm[o.id] ? `<button class="btn" data-act="issue" data-id="${o.id}">إصدار كود</button><button class="btn alt" data-act="activate" data-id="${o.id}">تفعيل فوري بلا كود</button>` : ''}
       ${cm[o.id] === 'unused' ? `<span class="tag">كود صادر غير مستخدم</span><button class="btn bad" data-act="revoke" data-id="${o.id}">إلغاء الكود</button>` : ''}</div></div>`).join('');
   } else if (tab === 'plans') {
     const {data:ps} = await sb.from('plans').select('*').order('created_at');
@@ -238,6 +238,7 @@ document.addEventListener('click', async ev => {
   else if (d.act === 'buy') { if (!me) { location.hash = '#/login'; return; } const o = await rpc('create_order', {p_plan_id: id}); if (o && o !== true) location.hash = '#/order/' + o; }
   else if (d.act === 'reset') { const e = document.querySelector('[data-form=login] [name=e]').value; if (!e) return toast('اكتب بريدك أولًا'); await sb.auth.resetPasswordForEmail(e, {redirectTo: location.origin + location.pathname}); toast('إن كان البريد مسجلًا فسيصلك رابط الاستعادة'); }
   else if (d.act === 'receipt') { const {data} = await sb.storage.from('receipts').createSignedUrl(d.p, 60); if (data) open(data.signedUrl, '_blank', 'noopener'); }
+  else if (d.act === 'activate') { if (confirm('هل تأكدت من وصول المبلغ فعليًا إلى حسابك؟ سيبدأ اشتراك الطالب فورًا ولا حاجة لكود.')) { const r = await rpc('admin_activate_order', {p_order_id: id}, 'تم تفعيل الاشتراك'); if (r) route(); } }
   else if (d.act === 'approve') { if (confirm('هل تأكدت من وصول المبلغ فعليًا إلى حسابك؟') && await rpc('review_order', {p_order_id: id, p_approve: true}, 'تم تأكيد الدفع')) route(); }
   else if (d.act === 'reject') { const n = prompt('سبب الرفض (إلزامي):'); if (n && await rpc('review_order', {p_order_id: id, p_approve: false, p_note: n}, 'تم الرفض')) route(); }
   else if (d.act === 'issue') { const c = await rpc('issue_activation_code', {p_order_id: id}); if (c && c !== true) { prompt('انسخ الكود وأرسله للمشترك الآن. لن يظهر مرة أخرى:', c); route(); } }
