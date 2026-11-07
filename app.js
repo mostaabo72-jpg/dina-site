@@ -3,7 +3,7 @@ const $ = s => document.querySelector(s), app = $('#app');
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const egp = n => new Intl.NumberFormat('ar-EG', {style:'currency', currency:'EGP'}).format(n);
 const dt = d => new Date(d).toLocaleDateString('ar-EG', {year:'numeric', month:'long', day:'numeric'});
-const ST = {awaiting_review:'في انتظار المراجعة', confirmed:'تم تأكيد الدفع — بانتظار كود التفعيل', rejected:'مرفوض', cancelled:'ملغى', activated:'مفعّل'};
+const ST = {awaiting_review:'في انتظار المراجعة', confirmed:'تم تأكيد الدفع — بانتظار تفعيل الاشتراك', rejected:'مرفوض', cancelled:'ملغى', activated:'مفعّل'};
 const SETTINGS = {instapay_name:'اسم صاحب حساب InstaPay', instapay_handle:'عنوان/رقم InstaPay للتحويل', payment_note:'ملاحظة تظهر مع بيانات التحويل (مثل سبب اختلاف الاسم)', support_contact:'وسيلة التواصل مع الإدارة', require_receipt:'هل صورة الإيصال مطلوبة؟ (true/false)', terms:'شروط الاستخدام والاشتراك', privacy:'سياسة الخصوصية', refund_policy:'سياسة الاسترداد', faq:'الأسئلة الشائعة'};
 let me = null;
 const toast = m => { const t = $('#toast'); t.textContent = m; t.hidden = false; setTimeout(() => t.hidden = true, 4000); };
@@ -34,8 +34,8 @@ const vHow = () => `<h1>طريقة الاشتراك</h1><p class="muted">منص�
 <li>يُنشأ لك طلب برقم محدد، وتظهر بيانات التحويل التي حددتها الإدارة.</li>
 <li>حوّل المبلغ عبر InstaPay من تطبيقك مباشرة، ثم اكتب مرجع التحويل وأرفق صورة الإيصال.</li>
 <li>تصبح حالة الطلب «في انتظار المراجعة». تتحقق الإدارة من وصول المبلغ فعليًا، ولا تعتمد على الصورة وحدها.</li>
-<li>بعد تأكيد الدفع تصلك الإدارة بكود تفعيل خاص بحسابك وحده ويُستخدم مرة واحدة.</li>
-<li>أدخل الكود في «حسابي» لتبدأ مدة الاشتراك من لحظة التفعيل، لا قبلها.</li></ol>
+<li>بعد التأكد من وصول المبلغ تفعّل الإدارة اشتراكك مباشرة، ويظهر في «حسابي» بتاريخي البداية والنهاية.</li>
+<li>تبدأ مدة الاشتراك من لحظة التفعيل، لا من وقت الطلب أو التحويل.</li></ol>
 <h3>التجديد وانتهاء الاشتراك</h3><p>عند التجديد تُضاف المدة الجديدة بعد نهاية اشتراكك الحالي دون خسارة أي أيام. وعند الانتهاء يتوقف الوصول للمحتوى المدفوع فقط، ويبقى حسابك وتقدمك الدراسي كما هما.</p>
 <p class="err">لا تشارك أبدًا كلمة مرور بنكية أو رقم بطاقة أو رمز OTP مع أي أحد، ولا نطلبها منك.</p></div>`;
 
@@ -64,7 +64,7 @@ async function vAcc() {
   return `<h1>حسابي</h1><div class="card"><h3>حالة الاشتراك</h3>` + (s
     ? `<p class="${live ? 'ok' : 'muted'}">${live ? 'فعّال' : 'غير فعّال حاليًا'} — من ${dt(s.starts_at)} إلى ${dt(s.ends_at)}</p>`
     : '<p class="muted">لا يوجد اشتراك. حسابك وتقدمك محفوظان دائمًا.</p>') + `</div>
-  <form class="card" data-form="redeem"><h3>تفعيل كود</h3><input class="ltr" name="c" placeholder="XXXXX-XXXXX-XXXXX-XXXXX" required><button class="btn">تفعيل</button></form>
+  <form class="card" data-form="redeem"><h3>لديك كود تفعيل؟ (اختياري)</h3><input class="ltr" name="c" placeholder="XXXXX-XXXXX-XXXXX-XXXXX" required><button class="btn">تفعيل</button></form>
   <h2>طلباتي</h2>` + ((orders || []).map(o => `<div class="card"><b>طلب رقم ${o.order_no}</b> — ${esc(o.plan_name)} — ${egp(o.price_egp)}
   <p><span class="tag">${ST[o.status]}</span> ${o.review_note ? '— ' + esc(o.review_note) : ''}</p><a class="btn alt" href="#/order/${o.id}">التفاصيل</a></div>`).join('') || '<p class="muted">لا توجد طلبات.</p>');
 }
@@ -75,7 +75,7 @@ async function vOrder(id) {
   if (!o) return '<p>الطلب غير موجود.</p>';
   const need = S.require_receipt === 'true';
   return `<h1>طلب رقم ${o.order_no}</h1><div class="card"><p>الباقة: <b>${esc(o.plan_name)}</b></p><p>المبلغ: <span class="price">${egp(o.price_egp)}</span></p>
-  <p>المدة: ${o.duration_days} يومًا تبدأ عند تفعيل الكود (لا تُخصم أثناء المراجعة).</p><p>الحالة: <span class="tag">${ST[o.status]}</span> ${o.review_note ? '— ' + esc(o.review_note) : ''}</p>
+  <p>المدة: ${o.duration_days} يومًا تبدأ عند تفعيل اشتراكك (لا تُخصم أثناء المراجعة).</p><p>الحالة: <span class="tag">${ST[o.status]}</span> ${o.review_note ? '— ' + esc(o.review_note) : ''}</p>
   <p class="muted">راجع <a href="#/policies">الشروط وسياسة الاسترداد</a> قبل الدفع.</p></div>` + (o.status === 'awaiting_review' ? `
   <div class="card"><h3>بيانات التحويل عبر InstaPay</h3>${S.instapay_handle ? `<p>حوّل <b>${egp(o.price_egp)}</b> إلى: <b class="ltr">${esc(S.instapay_handle)}</b> ${S.instapay_name ? '(' + esc(S.instapay_name) + ')' : ''}</p>` : '<p class="err">لم تضبط الإدارة بيانات التحويل بعد؛ لا تحوّل قبل ذلك.</p>'}
   ${S.payment_note ? `<p class="muted">${esc(S.payment_note)}</p>` : ''}
